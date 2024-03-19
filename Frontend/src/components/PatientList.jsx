@@ -1,9 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-function PatientList() {
+const PatientList = props => {
   return (
     <div>PatientList</div>
   )
 }
+
+PatientList.propTypes = {}
 
 export default PatientList

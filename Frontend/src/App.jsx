@@ -1,11 +1,15 @@
 import { useState } from "react";
+import { Route, Routes, Link } from "react-router-dom";
+import Dashboard from "./routes/Dashboard";
+import Login from "./routes/Login";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-     <h1>hello world</h1>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
     </>
   );
 }
