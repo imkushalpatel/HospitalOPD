@@ -1,5 +1,3 @@
-// src/components/Visits/AddVisitForm.jsx
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
@@ -23,7 +21,7 @@ const AddVisitForm = () => {
     e.preventDefault();
     try {
       await visitService.addVisit(formData);
-      navigate("/visits"); // Redirect to visit list after successful addition
+      navigate("/visits");
     } catch (error) {
       console.error("Error adding visit:", error);
     }

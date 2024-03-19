@@ -1,5 +1,3 @@
-// src/App.jsx
-
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/Auth/Login";
@@ -14,9 +12,10 @@ import AddVisitForm from "./components/Visits/AddVisitForm";
 
 const App = () => {
   return (
-    <div>
+    <>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
         <Route path="/nurse-dashboard" element={<NurseDashboard />} />
@@ -28,9 +27,8 @@ const App = () => {
         <Route path="/add-patient" element={<AddPatientForm />} />
         <Route path="/visits" element={<VisitList />} />
         <Route path="/add-visit" element={<AddVisitForm />} />
-        {/* Add more routes as needed */}
       </Routes>
-    </div>
+    </>
   );
 };
 

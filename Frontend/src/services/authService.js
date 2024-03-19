@@ -1,5 +1,3 @@
-// src/services/authService.js
-
 import axios from "axios";
 
 const API_URL = "http://localhost:3000/api/auth";
@@ -31,7 +29,7 @@ const authService = {
   },
   isAuthenticated: () => {
     const token = localStorage.getItem("token");
-    return !!token; // Returns true if token exists, false otherwise
+    return !!token;
   },
 };
 

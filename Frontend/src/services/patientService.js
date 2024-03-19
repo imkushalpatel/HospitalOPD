@@ -1,5 +1,3 @@
-// src/services/patientService.js
-
 import axios from "axios";
 
 const API_URL = "http://localhost:3000/api/patients";
@@ -29,7 +27,6 @@ const patientService = {
       throw error;
     }
   },
-  // Add more patient-related functions as needed
 };
 
 export default patientService;

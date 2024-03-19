@@ -29,7 +29,6 @@ const visitService = {
       throw error;
     }
   },
-  // Add more visit-related functions as needed
 };
 
 export default visitService;

@@ -1,5 +1,3 @@
-// src/components/Auth/Register.jsx
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
@@ -24,7 +22,7 @@ const Register = () => {
     e.preventDefault();
     try {
       await authService.register(formData);
-      navigate("/login"); // Redirect to login page after successful registration
+      navigate("/login");
     } catch (error) {
       setError(error.response.data.message);
     }

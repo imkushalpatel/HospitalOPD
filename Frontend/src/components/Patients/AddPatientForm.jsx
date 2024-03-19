@@ -1,5 +1,3 @@
-// src/components/Patients/AddPatientForm.jsx
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
@@ -23,7 +21,7 @@ const AddPatientForm = () => {
     e.preventDefault();
     try {
       await patientService.addPatient(formData);
-      navigate("/patients"); // Redirect to patient list after successful addition
+      navigate("/patients");
     } catch (error) {
       console.error("Error adding patient:", error);
     }
