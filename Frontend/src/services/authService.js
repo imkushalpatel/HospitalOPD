@@ -1,6 +1,9 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:3000/api/auth";
+const headers = {
+  Authorization: localStorage.getItem("token"),
+};
 
 const authService = {
   login: async (formData) => {
@@ -21,7 +24,7 @@ const authService = {
   },
   logout: async () => {
     try {
-      await axios.get(`${API_URL}/logout`);
+      await axios.get(`${API_URL}/logout`, { headers });
       localStorage.removeItem("token");
     } catch (error) {
       throw error;

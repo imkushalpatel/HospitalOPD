@@ -23,7 +23,8 @@ const Login = () => {
     try {
       const response = await authService.login(formData);
       localStorage.setItem("token", response.token);
-      navigate("/dashboard"); 
+      // navigate(`/${response.user.role}-dashboard`);
+      navigate(`/nurse-dashboard`);
     } catch (error) {
       setError(error.response.data.message);
     }
