@@ -9,6 +9,10 @@ module.exports = {
     FEMALE: "F",
     OTHER: "O",
   },
+  STATUS:{
+    PENDING:"P",
+    COMPLETED:'C'
+  },
   TESTS: [
     "immunology",
     "autoantibodies",

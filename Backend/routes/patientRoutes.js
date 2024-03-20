@@ -12,16 +12,19 @@ router.post(
   "/",
   joiMiddleware(
     Joi.object().keys({
-      name: Joi.string().required(),
+      firstname: Joi.string().required(),
+      lastname: Joi.string().required(),
+      email: Joi.string().email().allow(null, ""),
+      phone: Joi.string().allow(null, ""),
       gender: Joi.string()
         .valid(...lodash.values(Constants.GENDER))
         .trim()
         .required(),
-      age: Joi.number().positive().precision(0).min(1).max(150).required(),
+      // age: Joi.number().positive().precision(0).min(1).max(150).required(),
       DOB: Joi.date().less("now").required(),
-      height: Joi.number().positive().required(),
-      weight: Joi.number().positive().required(),
-      BP: Joi.string().required(),
+      // height: Joi.number().positive().required(),
+      // weight: Joi.number().positive().required(),
+      // BP: Joi.string().required(),
     }),
     "body"
   ),

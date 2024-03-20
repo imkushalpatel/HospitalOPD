@@ -8,30 +8,37 @@ const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    role: "nurse",
   });
-  const [error, setError] = useState("");
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
+  const [alert, setAlert] = useState({
+    type: null,
+    message: "",
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await authService.register(formData);
-      navigate("/login");
+      const response = await authService.register(formData);
+      setAlert({ type: "success", message: response.message });
+      setTimeout(() => {
+        setAlert({ type: null, message: "" });
+        navigate(-1);
+      }, 3000);
     } catch (error) {
-      setError(error.response.data.message);
+      setAlert({ type: "danger", message: error.response.data.message });
     }
   };
 
   return (
     <div>
       <h2>Register</h2>
-      {error && <Alert variant="danger">{error}</Alert>}
+      {alert.message && <Alert variant={alert.type}>{alert.message}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formUsername">
           <Form.Label>Username:</Form.Label>
@@ -50,6 +57,20 @@ const Register = () => {
             value={formData.password}
             onChange={handleChange}
           />
+        </Form.Group>
+        <Form.Group controlId="formRole">
+          <Form.Label>Role:</Form.Label>
+          <Form.Control
+            as="select"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            required
+          >
+            <option value="doctor">Doctor</option>
+            <option value="nurse">Nurse</option>
+            <option value="internNurse">Intern Nurse</option>
+          </Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit">
           Register

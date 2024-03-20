@@ -8,7 +8,7 @@ const NurseDashboard = () => {
   useEffect(() => {
     const fetchPatientsAddedToday = async () => {
       try {
-        const response = await patientService.getPatientsAddedToday();
+        const response = await patientService.getAllPatients();
         setPatientsAddedToday(response);
       } catch (error) {
         console.error("Error fetching patients added today:", error);

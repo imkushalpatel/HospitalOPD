@@ -4,23 +4,23 @@ const Constants = require("../constants");
 
 const patientSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    firstname: { type: String, required: true },
+    lastname: { type: String, required: true },
+    email: { type: String },
+    phone: { type: String },
     gender: {
       type: String,
       enum: lodash.values(Constants.GENDER),
       required: true,
     },
-    age: { type: Number, required: true },
+    // age: { type: Number, required: true },
     DOB: { type: Date, required: true },
-    height: { type: Number },
-    weight: { type: Number },
-    BP: { type: String },
     createdby: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    visits: [{ type: mongoose.Schema.Types.ObjectId, ref: "Visit" }],
+    // visits: [{ type: mongoose.Schema.Types.ObjectId, ref: "Visit" }],
   },
   { timestamps: true }
 );

@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import authService from "../../services/authService";
+import { useAuth } from '../../AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setUser, setIsLoggedIn } = useAuth();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -23,8 +25,10 @@ const Login = () => {
     try {
       const response = await authService.login(formData);
       localStorage.setItem("token", response.token);
-      // navigate(`/${response.user.role}-dashboard`);
-      navigate(`/nurse-dashboard`);
+      setUser(response.user);
+      setIsLoggedIn(true);
+      navigate(`/${response.user.role}-dashboard`);
+      // navigate(`/nurse-dashboard`);
     } catch (error) {
       setError(error.response.data.message);
     }

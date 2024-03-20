@@ -2,7 +2,9 @@ const Patient = require("../models/Patient");
 
 exports.getAllPatients = async (req, res) => {
   try {
-    const patients = await Patient.find();
+    const patients = await Patient.find().populate("createdby", {
+      password: 0,
+    });
     res.json(patients);
   } catch (error) {
     console.error(error);

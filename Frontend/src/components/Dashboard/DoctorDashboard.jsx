@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import visitService from "../../services/visitService";
+import { Link } from "react-router-dom";
 
 const DoctorDashboard = () => {
   const [visits, setVisits] = useState([]);
@@ -20,6 +21,13 @@ const DoctorDashboard = () => {
   return (
     <Container>
       <h2>Doctor Dashboard</h2>
+
+      <Row>
+        <Link to="/register">Create User</Link>
+        <Link to="/add-patient">Add Patient</Link>
+        <Link to="/add-visit">Add Visit</Link>
+      </Row>
+
       <Row>
         {visits.map((visit) => (
           <Col key={visit._id} md={4}>

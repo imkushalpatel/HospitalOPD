@@ -8,6 +8,10 @@ const crypto = require("crypto");
 exports.register = async (req, res) => {
   try {
     const { username, password, role } = req.body;
+
+    if (await User.findOne({ username })) {
+      return res.status(401).json({ message: "Username already exists" });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ username, password: hashedPassword, role });
     await user.save();
