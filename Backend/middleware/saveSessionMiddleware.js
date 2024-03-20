@@ -17,23 +17,21 @@
 // };
 
 module.exports = async (req, res, next) => {
+  if (req.session && req.session.sessionId && req.session.data) {
+    try {
+      const { sessionId } = req.session;
 
-    if (req.session && req.session.sessionId && req.session.data) {
+      const session = await Session.findByIdAndUpdate(
+        sessionId,
+        { data: req.session.data },
+        { new: true, upsert: false }
+      );
 
-        try {
-            const { sessionId } = req.session;
-
-            const session = await Session.findByIdAndUpdate(
-                sessionId,
-                { data: req.session.data },
-                { new: true, upsert: false }
-            );
-
-            console.log(`Session data saved for session ID: ${sessionId}`);
-        } catch (error) {
-            console.error(`Error saving session data: ${error.message}`);
-        }
+      console.log(`Session data saved for session ID: ${sessionId}`);
+    } catch (error) {
+      console.error(`Error saving session data: ${error.message}`);
     }
+  }
 
-    next();
-}
+  next();
+};
