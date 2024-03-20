@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 
 const sessionSchema = new mongoose.Schema({
   _id: String,
-  data: Object,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   expires: Date,
 });
 

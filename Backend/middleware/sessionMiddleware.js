@@ -30,7 +30,7 @@ const tokenMiddleware = async (req, res, next) => {
     try {
       const decoded = verifyToken(token);
 
-      const sessionData = await Session.findById(decoded.sessionId).exec();
+      const sessionData = await Session.findById(decoded.sessionId).populate('user').exec();
 
       if (!sessionData || Date.now() > sessionData.expires.getTime()) {
         return res
@@ -40,7 +40,7 @@ const tokenMiddleware = async (req, res, next) => {
       //   const user= await User.findById(decoded.date.user);
       req.session = {
         sessionId: decoded.sessionId,
-        user: decoded.data.user,
+        user: sessionData.user,
         expiresAt: sessionData.expires.getTime(),
       };
 

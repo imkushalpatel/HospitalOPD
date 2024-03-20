@@ -40,8 +40,6 @@ exports.login = async (req, res) => {
 };
 
 const setToken = async (user) => {
-  const { _id } = user;
-
   const sessionId = uuid.v4();
   const payload = {
     sessionId,
@@ -49,7 +47,7 @@ const setToken = async (user) => {
 
   const session = new Session({
     _id: sessionId,
-    data: { user: _id },
+    user,
     expires: new Date(Date.now() + 30 * 60 * 1000),
   });
   await session.save();
