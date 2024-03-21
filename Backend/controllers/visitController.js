@@ -2,7 +2,27 @@ const Visit = require("../models/Visit");
 
 exports.getAllVisits = async (req, res) => {
   try {
-    const visits = await Visit.find();
+    const visits = await Visit.find().populate("patient");
+    res.json(visits);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+exports.getTodayVisits = async (req, res) => {
+  try {
+    var now = new Date();
+    var startOfToday = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
+    const visits = await Visit.find({
+      $or: [
+        { createdAt: { $gte: startOfToday } },
+        { updatedAt: { $gte: startOfToday } },
+      ],
+    }).populate("patient");
     res.json(visits);
   } catch (error) {
     console.error(error);

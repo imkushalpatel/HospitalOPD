@@ -12,6 +12,29 @@ exports.getAllPatients = async (req, res) => {
   }
 };
 
+exports.getTodayPatients = async (req, res) => {
+  try {
+    var now = new Date();
+    var startOfToday = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
+    const patients = await Patient.find({
+      $or: [
+        { createdAt: { $gte: startOfToday } },
+        { updatedAt: { $gte: startOfToday } },
+      ],
+    }).populate("createdby", {
+      password: 0,
+    });
+    res.json(patients);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 exports.createPatient = async (req, res) => {
   try {
     req.body.createdby = req.session.user;

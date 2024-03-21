@@ -4,6 +4,7 @@ const router = express.Router();
 const visitController = require("../controllers/visitController");
 
 router.get("/", visitController.getAllVisits);
+router.get("/today", visitController.getTodayVisits);
 router.post("/", visitController.createVisit);
 router.get("/:id", visitController.getVisitById);
 router.put("/:id", visitController.updateVisit);

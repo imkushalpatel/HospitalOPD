@@ -8,6 +8,7 @@ const Joi = require("joi");
 const patientController = require("../controllers/patientController");
 
 router.get("/", patientController.getAllPatients);
+router.get("/today", patientController.getTodayPatients);
 router.post(
   "/",
   joiMiddleware(
