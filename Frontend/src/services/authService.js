@@ -25,7 +25,6 @@ const authService = {
   logout: async () => {
     try {
       await axios.get(`${API_URL}/logout`, { headers });
-      localStorage.removeItem("token");
     } catch (error) {
       throw error;
     }

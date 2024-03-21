@@ -1,16 +1,28 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
+import authService from "../../services/authService";
 
 const Logout = () => {
   const navigate = useNavigate();
   const { setIsLoggedIn, setUser } = useAuth();
 
   useEffect(() => {
-    setIsLoggedIn(false);
-    setUser({});
-    localStorage.removeItem("token");
-    navigate("/login");
+    const logout = async () => {
+      try {
+        await authService.logout();
+
+        setTimeout(() => {
+          setIsLoggedIn(false);
+          setUser({});
+          localStorage.clear();
+          navigate("/login");
+        }, 3000);
+      } catch (error) {
+        console.error("Error Logging Out", error);
+      }
+    };
+    logout();
   }, [navigate, setIsLoggedIn, setUser]);
 
   return (
