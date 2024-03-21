@@ -8,7 +8,7 @@ const NavigationBar = () => {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand as={Link} to="/">
+      <Navbar.Brand as={Link} to={isLoggedIn ? `/${user.role}-dashboard` : "/"}>
         Hospital OPD
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />

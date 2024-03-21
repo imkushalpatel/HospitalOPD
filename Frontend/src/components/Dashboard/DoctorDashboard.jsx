@@ -2,22 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import visitService from "../../services/visitService";
 import { Link } from "react-router-dom";
+import PatientList from "../Patients/PatientList";
+import VisitList from "../Visits/VisitList";
 
 const DoctorDashboard = () => {
-  const [visits, setVisits] = useState([]);
-
-  useEffect(() => {
-    const fetchVisits = async () => {
-      try {
-        const response = await visitService.getTodaysVisitsForDoctor();
-        setVisits(response);
-      } catch (error) {
-        console.error("Error fetching visits:", error);
-      }
-    };
-    fetchVisits();
-  }, []);
-
   return (
     <Container>
       <h2>Doctor Dashboard</h2>
@@ -29,19 +17,14 @@ const DoctorDashboard = () => {
       </Row>
 
       <Row>
-        {visits.map((visit) => (
-          <Col key={visit._id} md={4}>
-            <Card>
-              <Card.Body>
-                <Card.Title>Patient: {visit.patientName}</Card.Title>
-                <Card.Text>
-                  Doctor Notes: {visit.doctorNotes}
-                  {/* Add more visit details here */}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+        <Col>
+          <PatientList isDashboard />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <VisitList isDashboard />
+        </Col>
       </Row>
     </Container>
   );

@@ -29,7 +29,6 @@ const AddPatientForm = () => {
     e.preventDefault();
     try {
       const response = await patientService.addPatient(formData);
-
       setAlert({ type: "success", message: response.message });
       setTimeout(() => {
         setAlert({ type: null, message: "" });
@@ -37,7 +36,6 @@ const AddPatientForm = () => {
       }, 3000);
     } catch (error) {
       setAlert({ type: "danger", message: error.response.data.message });
-      console.error("Error adding patient:", error);
     }
   };
 

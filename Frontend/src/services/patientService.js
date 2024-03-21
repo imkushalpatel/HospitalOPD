@@ -14,9 +14,17 @@ const patientService = {
       throw error;
     }
   },
-  getPatientsAddedToday: async () => {
+  getTodayPatients: async () => {
     try {
       const response = await axios.get(`${API_URL}/today`, { headers });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  getPatient: async (patientId) => {
+    try {
+      const response = await axios.get(`${API_URL}/${patientId}`, { headers });
       return response.data;
     } catch (error) {
       throw error;

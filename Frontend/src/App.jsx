@@ -11,31 +11,36 @@ import AddPatientForm from "./components/Patients/AddPatientForm";
 import VisitList from "./components/Visits/VisitList";
 import AddVisitForm from "./components/Visits/AddVisitForm";
 import Navbar from "./components/Navbar";
-import { AuthProvider } from "./AuthContext";
+import { useAuth } from "./AuthContext";
 
 const App = () => {
+  const { isLoggedIn, user } = useAuth();
+
   return (
     <>
-      <AuthProvider>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/logout" element={<Logout />} />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        {isLoggedIn && (
+          <>
+            <Route path="/register" element={<Register />} />
+            <Route path="/logout" element={<Logout />} />
 
-          <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-          <Route path="/nurse-dashboard" element={<NurseDashboard />} />
-          <Route
-            path="/intern-nurse-dashboard"
-            element={<InternNurseDashboard />}
-          />
-          <Route path="/patients" element={<PatientList />} />
-          <Route path="/add-patient" element={<AddPatientForm />} />
-          <Route path="/visits" element={<VisitList />} />
-          <Route path="/add-visit" element={<AddVisitForm />} />
-        </Routes>
-      </AuthProvider>
+            <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+            <Route path="/nurse-dashboard" element={<NurseDashboard />} />
+            <Route
+              path="/intern-nurse-dashboard"
+              element={<InternNurseDashboard />}
+            />
+            <Route path="/patients" element={<PatientList />} />
+            <Route path="/add-patient" element={<AddPatientForm />} />
+            <Route path="/visits" element={<VisitList />} />
+            <Route path="/add-visit" element={<AddVisitForm />} />
+            <Route path="/add-visit/:patientId" element={<AddVisitForm />} />
+          </>
+        )}
+      </Routes>
     </>
   );
 };

@@ -14,7 +14,7 @@ const visitService = {
       throw error;
     }
   },
-  getTodaysVisitsForDoctor: async () => {
+  getTodayVisits: async () => {
     try {
       const response = await axios.get(`${API_URL}/today`, { headers });
       return response.data;
