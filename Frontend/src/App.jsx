@@ -40,6 +40,7 @@ const App = () => {
             <Route path="/add-visit/:patientId" element={<AddVisitForm />} />
           </>
         )}
+        <Route path="*" element={<Login />} />
       </Routes>
     </>
   );
