@@ -1,4 +1,5 @@
 const Patient = require("../models/Patient");
+const Visit = require("../models/Visit");
 
 exports.getAllPatients = async (req, res) => {
   try {
@@ -73,6 +74,7 @@ exports.updatePatient = async (req, res) => {
 exports.deletePatient = async (req, res) => {
   try {
     await Patient.findByIdAndDelete(req.params.id);
+    await Visit.deleteMany({ patient: req.params.id });
     res.json({ message: "Patient deleted successfully" });
   } catch (error) {
     console.error(error);

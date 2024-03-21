@@ -30,6 +30,16 @@ const visitService = {
       throw error;
     }
   },
+  deleteVisit: async (id) => {
+    try {
+      const response = await axios.delete(`${API_URL}/${id}`, {
+        headers,
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default visitService;

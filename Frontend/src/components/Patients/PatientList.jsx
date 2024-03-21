@@ -51,51 +51,55 @@ const PatientList = ({ isDashboard }) => {
     <Container>
       <h2>{isDashboard ? "Today's Added Patients" : "Patient List"}</h2>
       <Row>
-        {patients.map((patient) => (
-          <Col key={patient._id} md={4}>
-            <Card>
-              <Card.Body>
-                <Card.Title>
-                  <Row>
-                    <Col>
-                      {patient.firstname} {patient.lastname}
-                    </Col>
-                    <Col xs="auto">
-                      <Button
-                        variant="link"
-                        onClick={() => handleAddVisit(patient._id)}
-                      >
-                        <BsPlusLg />
-                      </Button>
-                      <Button
-                        variant="link"
-                        onClick={() => handleDelete(patient._id)}
-                      >
-                        <BsTrash />
-                      </Button>
-                      <Button
-                        variant="link"
-                        onClick={() => handleEdit(patient._id)}
-                      >
-                        <BsPencil />
-                      </Button>
-                    </Col>
-                  </Row>
-                </Card.Title>
-                <Card.Text>
-                  <strong>Email:</strong> {patient.email}
-                  <br />
-                  <strong>Phone:</strong> {patient.phone}
-                  <br />
-                  <strong>Gender:</strong> {patient.gender}
-                  <br />
-                  <strong>Date of Birth:</strong>{" "}
-                  {new Date(patient.DOB).toLocaleDateString()}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+        {patients.length ? (
+          patients.map((patient) => (
+            <Col key={patient._id} md={4}>
+              <Card>
+                <Card.Body>
+                  <Card.Title>
+                    <Row>
+                      <Col>
+                        {patient.firstname} {patient.lastname}
+                      </Col>
+                      <Col xs="auto">
+                        <Button
+                          variant="link"
+                          onClick={() => handleAddVisit(patient._id)}
+                        >
+                          <BsPlusLg />
+                        </Button>
+                        <Button
+                          variant="link"
+                          onClick={() => handleDelete(patient._id)}
+                        >
+                          <BsTrash />
+                        </Button>
+                        <Button
+                          variant="link"
+                          onClick={() => handleEdit(patient._id)}
+                        >
+                          <BsPencil />
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Card.Title>
+                  <Card.Text>
+                    <strong>Email:</strong> {patient.email}
+                    <br />
+                    <strong>Phone:</strong> {patient.phone}
+                    <br />
+                    <strong>Gender:</strong> {patient.gender}
+                    <br />
+                    <strong>Date of Birth:</strong>{" "}
+                    {new Date(patient.DOB).toLocaleDateString()}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <h6>No Patient Available</h6>
+        )}
       </Row>
     </Container>
   );

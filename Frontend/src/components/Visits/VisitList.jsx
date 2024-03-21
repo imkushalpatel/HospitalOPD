@@ -27,7 +27,6 @@ const VisitList = ({ isDashboard }) => {
   const handleDelete = async (id) => {
     try {
       await visitService.deleteVisit(id);
-      // After deleting, fetch visits again to update the list
       const updatedVisits = visits.filter((visit) => visit._id !== id);
       setVisits(updatedVisits);
     } catch (error) {
@@ -44,53 +43,57 @@ const VisitList = ({ isDashboard }) => {
     <Container>
       <h2>{isDashboard ? "Today's Visits" : "Visit List"}</h2>
       <Row>
-        {visits.map((visit) => (
-          <Col key={visit._id} md={4}>
-            <Card>
-              <Card.Body>
-                <Card.Title>
-                  <Row>
-                    <Col>
-                      {visit.patient.firstname} {visit.patient.lastname}
-                    </Col>
-                    <Col xs="auto">
-                      <Button
-                        variant="link"
-                        onClick={() => handleDelete(visit._id)}
-                      >
-                        <BsTrash />
-                      </Button>
-                      <Button
-                        variant="link"
-                        onClick={() => handleEdit(visit._id)}
-                      >
-                        <BsPencil />
-                      </Button>
-                    </Col>
-                  </Row>
-                </Card.Title>
-                <Card.Text>
-                  <strong>Height:</strong> {visit.height}
-                  <br />
-                  <strong>Weight:</strong> {visit.weight}
-                  <br />
-                  <strong>Blood Pressure (SYS/DIA/PUL):</strong> {visit.bp.sys}/
-                  {visit.bp.dia}/{visit.bp.pul}
-                  <br />
-                  <strong>Doctor Notes:</strong> {visit.doctorNotes}
-                  <br />
-                  <strong>Test Requested:</strong> {visit.testRequested}
-                  <br />
-                  <strong>Test Results:</strong> {visit.testResults}
-                  <br />
-                  <strong>Prescriptions:</strong> {visit.prescriptions}
-                  <br />
-                  <strong>Diagnosis:</strong> {visit.diagnosis}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+        {visits.length ? (
+          visits.map((visit) => (
+            <Col key={visit._id} md={4}>
+              <Card>
+                <Card.Body>
+                  <Card.Title>
+                    <Row>
+                      <Col>
+                        {visit.patient.firstname} {visit.patient.lastname}
+                      </Col>
+                      <Col xs="auto">
+                        <Button
+                          variant="link"
+                          onClick={() => handleDelete(visit._id)}
+                        >
+                          <BsTrash />
+                        </Button>
+                        <Button
+                          variant="link"
+                          onClick={() => handleEdit(visit._id)}
+                        >
+                          <BsPencil />
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Card.Title>
+                  <Card.Text>
+                    <strong>Height:</strong> {visit.height}
+                    <br />
+                    <strong>Weight:</strong> {visit.weight}
+                    <br />
+                    <strong>Blood Pressure (SYS/DIA/PUL):</strong>{" "}
+                    {visit.bp.sys}/{visit.bp.dia}/{visit.bp.pul}
+                    <br />
+                    <strong>Doctor Notes:</strong> {visit.doctorNotes}
+                    <br />
+                    <strong>Test Requested:</strong> {visit.testRequested}
+                    <br />
+                    <strong>Test Results:</strong> {visit.testResults}
+                    <br />
+                    <strong>Prescriptions:</strong> {visit.prescriptions}
+                    <br />
+                    <strong>Diagnosis:</strong> {visit.diagnosis}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        ) : (
+          <h6>No Visit Available</h6>
+        )}
       </Row>
     </Container>
   );

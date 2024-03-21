@@ -38,6 +38,16 @@ const patientService = {
       throw error;
     }
   },
+  deletePatient: async (patientId) => {
+    try {
+      const response = await axios.delete(`${API_URL}/${patientId}`, {
+        headers,
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
 };
 
 export default patientService;
