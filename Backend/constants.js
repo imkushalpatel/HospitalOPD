@@ -2,17 +2,18 @@ module.exports = {
   ROLES: {
     DOCTOR: "doctor",
     NURSE: "nurse",
-    INTERN_NURSE: "internNurse",
+    INTERN_NURSE: "intern-nurse",
   },
   GENDER: {
     MALE: "M",
     FEMALE: "F",
     OTHER: "O",
   },
-  STATUS:{
-    PENDING:"P",
-    COMPLETED:'C'
+  STATUS: {
+    PENDING: "P",
+    COMPLETED: "C",
   },
+
   TESTS: [
     "immunology",
     "autoantibodies",

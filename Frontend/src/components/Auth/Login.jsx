@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import authService from "../../services/authService";
-import { useAuth } from '../../AuthContext';
+import { useAuth } from "../../AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,7 +27,8 @@ const Login = () => {
       localStorage.setItem("token", response.token);
       setUser(response.user);
       setIsLoggedIn(true);
-      navigate(`/${response.user.role}-dashboard`);
+      // navigate(`/${response.user.role}-dashboard`);
+      navigate("/dashboard");
       // navigate(`/nurse-dashboard`);
     } catch (error) {
       setError(error.response.data.message);

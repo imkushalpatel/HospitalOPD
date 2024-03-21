@@ -4,6 +4,7 @@ const User = require("../models/User");
 const Session = require("../models/Session");
 const uuid = require("uuid");
 const crypto = require("crypto");
+const Permission = require("../models/Permission");
 
 exports.register = async (req, res) => {
   try {
@@ -35,8 +36,9 @@ exports.login = async (req, res) => {
     }
     // const token = jwt.sign({ userId: user._id, username: user.username, role: user.role }, process.env.JWT_SECRET);
     const token = await setToken(user);
+    const permission = await Permission.findOne({ role: user.role });
 
-    res.json({ user: { role: user.role, id: user._id }, token });
+    res.json({ user: { role: user.role, id: user._id, permission }, token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

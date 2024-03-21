@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import visitService from "../../services/visitService";
 import { Link } from "react-router-dom";
 import PatientList from "../Patients/PatientList";
 import VisitList from "../Visits/VisitList";
+import { useAuth } from "../../AuthContext";
 
 const DoctorDashboard = () => {
+  const { user } = useAuth();
   return (
     <Container>
-      <h2>Doctor Dashboard</h2>
+      <h2>{user.role.toUpperCase()} Dashboard</h2>
 
       <Row>
         <Link to="/register">Create User</Link>

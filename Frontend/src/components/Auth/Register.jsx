@@ -69,7 +69,7 @@ const Register = () => {
           >
             <option value="doctor">Doctor</option>
             <option value="nurse">Nurse</option>
-            <option value="internNurse">Intern Nurse</option>
+            <option value="intern-nurse">Intern Nurse</option>
           </Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit">
