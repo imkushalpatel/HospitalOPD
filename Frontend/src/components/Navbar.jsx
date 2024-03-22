@@ -32,8 +32,8 @@ const NavigationBar = () => {
                 </Nav.Link>
               )}
               {user.role == "doctor" && (
-                <Nav.Link as={Link} to="/register">
-                  Register
+                <Nav.Link as={Link} to="/users">
+                  Users
                 </Nav.Link>
               )}
               <Nav.Link as={Link} to="/logout">

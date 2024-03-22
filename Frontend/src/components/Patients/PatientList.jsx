@@ -39,11 +39,10 @@ const PatientList = ({ isDashboard }) => {
   };
 
   const handleEdit = (id) => {
-    // Implement edit functionality here
+    navigate("/add-patient/" + id);
     console.log("Edit patient with id:", id);
   };
   const handleAddVisit = (id) => {
-    // Implement edit functionality here
     navigate("/add-visit/" + id);
     console.log("add patient visit with id:", id);
   };

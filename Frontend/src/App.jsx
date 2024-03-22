@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import Logout from "./components/Auth/Logout";
+import Users from "./components/Auth/Users";
 import DoctorDashboard from "./components/Dashboard/DoctorDashboard";
 
 import PatientList from "./components/Patients/PatientList";
@@ -43,7 +44,7 @@ const App = () => {
           <>
             <Route path="/register" element={<Register />} />
             <Route path="/logout" element={<Logout />} />
-
+            <Route path="/users" element={<Users />} />
             <Route path="/dashboard" element={<DoctorDashboard />} />
             {/* <Route path="/nurse-dashboard" element={<InternNurseDashboard />} />
             <Route
@@ -52,9 +53,17 @@ const App = () => {
             /> */}
             <Route path="/patients" element={<PatientList />} />
             <Route path="/add-patient" element={<AddPatientForm />} />
+            <Route
+              path="/add-patient/:patientId"
+              element={<AddPatientForm />}
+            />
             <Route path="/visits" element={<VisitList />} />
             <Route path="/add-visit" element={<AddVisitForm />} />
             <Route path="/add-visit/:patientId" element={<AddVisitForm />} />
+            <Route
+              path="/add-visit/visit/:visitId"
+              element={<AddVisitForm />}
+            />
           </>
         )}
         <Route

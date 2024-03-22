@@ -27,6 +27,10 @@ const patientService = {
     const response = await axios.post(API_URL, formData);
     return response.data;
   },
+  updatePatient: async (patientId, formData) => {
+    const response = await axios.put(`${API_URL}/${patientId}`, formData);
+    return response.data;
+  },
   deletePatient: async (patientId) => {
     const response = await axios.delete(`${API_URL}/${patientId}`);
     return response.data;

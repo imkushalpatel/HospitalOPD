@@ -82,11 +82,30 @@ exports.logout = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-exports.userData = async (req, res) => {
+exports.loginUser = async (req, res) => {
   try {
     const user = req.session.user;
     const permission = await Permission.findOne({ role: user.role });
     res.json({ user: { role: user.role, id: user._id, permission } });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+exports.userAll = async (req, res) => {
+  try {
+    const user = req.session.user;
+    const users = await User.find({ _id: { $ne: user._id } }, { password: 0 });
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ message: "User deleted successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

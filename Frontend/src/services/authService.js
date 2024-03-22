@@ -30,6 +30,22 @@ const authService = {
     });
     return response.data;
   },
+  getAllUsers: async () => {
+    const response = await axios.get(`${API_URL}/user/all`, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  },
+  deleteUser: async (userId) => {
+    const response = await axios.delete(`${API_URL}/user/${userId}`, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  },
 };
 
 export default authService;

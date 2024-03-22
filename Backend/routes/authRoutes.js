@@ -40,6 +40,8 @@ router.post(
 );
 
 router.get("/logout", sessionMiddleware, authController.logout);
-router.get("/user", sessionMiddleware, authController.userData);
+router.get("/user", sessionMiddleware, authController.loginUser);
+router.get("/user/all", sessionMiddleware, authController.userAll);
+router.delete("/user/:id", sessionMiddleware, authController.deleteUser);
 
 module.exports = router;

@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import patientService from "../../services/patientService";
+import moment from "moment";
 
 const AddPatientForm = () => {
+  const { patientId } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstname: "",
@@ -17,6 +19,22 @@ const AddPatientForm = () => {
     type: null,
     message: "",
   });
+  useEffect(() => {
+    if (patientId) {
+      const fetchPatient = async () => {
+        try {
+          const patient = await patientService.getPatient(patientId);
+
+          patient.DOB = moment(patient.DOB).format("YYYY-MM-DD");
+
+          setFormData(patient);
+        } catch (error) {
+          console.error("Error fetching patient:", error);
+        }
+      };
+      fetchPatient();
+    }
+  }, [patientId]);
 
   const handleChange = (e) => {
     setFormData({
@@ -28,7 +46,9 @@ const AddPatientForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await patientService.addPatient(formData);
+      const response = patientId
+        ? await patientService.updatePatient(patientId, formData)
+        : await patientService.addPatient(formData);
       setAlert({ type: "success", message: response.message });
       setTimeout(() => {
         setAlert({ type: null, message: "" });
@@ -108,7 +128,7 @@ const AddPatientForm = () => {
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Add Patient
+          {patientId ? "Save Changes" : "Add Patient"}
         </Button>
       </Form>
     </div>
