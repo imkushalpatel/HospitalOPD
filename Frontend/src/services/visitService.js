@@ -7,38 +7,22 @@ const headers = {
 
 const visitService = {
   getAllVisits: async () => {
-    try {
-      const response = await axios.get(API_URL, { headers });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.get(API_URL, { headers });
+    return response.data;
   },
   getTodayVisits: async () => {
-    try {
-      const response = await axios.get(`${API_URL}/today`, { headers });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.get(`${API_URL}/today`, { headers });
+    return response.data;
   },
   addVisit: async (formData) => {
-    try {
-      const response = await axios.post(API_URL, formData, { headers });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.post(API_URL, formData, { headers });
+    return response.data;
   },
   deleteVisit: async (id) => {
-    try {
-      const response = await axios.delete(`${API_URL}/${id}`, {
-        headers,
-      });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.delete(`${API_URL}/${id}`, {
+      headers,
+    });
+    return response.data;
   },
 };
 

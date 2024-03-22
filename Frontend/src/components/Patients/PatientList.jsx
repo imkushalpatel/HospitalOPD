@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { BsTrash, BsPencil, BsPlusLg } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";

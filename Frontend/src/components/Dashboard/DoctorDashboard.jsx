@@ -1,4 +1,4 @@
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PatientList from "../Patients/PatientList";
 import VisitList from "../Visits/VisitList";

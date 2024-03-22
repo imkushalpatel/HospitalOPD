@@ -7,46 +7,26 @@ const headers = {
 
 const patientService = {
   getAllPatients: async () => {
-    try {
-      const response = await axios.get(API_URL, { headers });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.get(API_URL, { headers });
+    return response.data;
   },
   getTodayPatients: async () => {
-    try {
-      const response = await axios.get(`${API_URL}/today`, { headers });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.get(`${API_URL}/today`, { headers });
+    return response.data;
   },
   getPatient: async (patientId) => {
-    try {
-      const response = await axios.get(`${API_URL}/${patientId}`, { headers });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.get(`${API_URL}/${patientId}`, { headers });
+    return response.data;
   },
   addPatient: async (formData) => {
-    try {
-      const response = await axios.post(API_URL, formData, { headers });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.post(API_URL, formData, { headers });
+    return response.data;
   },
   deletePatient: async (patientId) => {
-    try {
-      const response = await axios.delete(`${API_URL}/${patientId}`, {
-        headers,
-      });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.delete(`${API_URL}/${patientId}`, {
+      headers,
+    });
+    return response.data;
   },
 };
 

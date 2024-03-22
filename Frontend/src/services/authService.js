@@ -7,27 +7,15 @@ const headers = {
 
 const authService = {
   login: async (formData) => {
-    try {
-      const response = await axios.post(`${API_URL}/login`, formData);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.post(`${API_URL}/login`, formData);
+    return response.data;
   },
   register: async (formData) => {
-    try {
-      const response = await axios.post(`${API_URL}/register`, formData);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const response = await axios.post(`${API_URL}/register`, formData);
+    return response.data;
   },
   logout: async () => {
-    try {
-      await axios.get(`${API_URL}/logout`, { headers });
-    } catch (error) {
-      throw error;
-    }
+    await axios.get(`${API_URL}/logout`, { headers });
   },
   isAuthenticated: () => {
     const token = localStorage.getItem("token");
