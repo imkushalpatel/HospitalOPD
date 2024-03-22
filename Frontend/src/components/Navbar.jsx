@@ -21,15 +21,21 @@ const NavigationBar = () => {
               <Nav.Link as={Link} to="dashboard">
                 Dashboard
               </Nav.Link>
-              <Nav.Link as={Link} to="/patients">
-                Patients
-              </Nav.Link>
-              <Nav.Link as={Link} to="/visits">
-                Visits
-              </Nav.Link>
-              <Nav.Link as={Link} to="/register">
-                Register
-              </Nav.Link>
+              {user.permission.patient.view && (
+                <Nav.Link as={Link} to="/patients">
+                  Patients
+                </Nav.Link>
+              )}
+              {user.permission.visit.view && (
+                <Nav.Link as={Link} to="/visits">
+                  Visits
+                </Nav.Link>
+              )}
+              {user.role == "doctor" && (
+                <Nav.Link as={Link} to="/register">
+                  Register
+                </Nav.Link>
+              )}
               <Nav.Link as={Link} to="/logout">
                 Logout
               </Nav.Link>

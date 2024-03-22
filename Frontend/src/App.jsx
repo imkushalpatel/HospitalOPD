@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
@@ -10,16 +11,35 @@ import VisitList from "./components/Visits/VisitList";
 import AddVisitForm from "./components/Visits/AddVisitForm";
 import Navbar from "./components/Navbar";
 import { useAuth } from "./AuthContext";
+import authService from "./services/authService";
 
 const App = () => {
-  const { isLoggedIn } = useAuth();
-
+  const { isLoggedIn, setUser, setIsLoggedIn } = useAuth();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const fetchUser = async () => {
+      try {
+        const response = await authService.getUser();
+        setUser(response.user);
+        setIsLoggedIn(true);
+        console.log(response.user);
+      } catch (error) {
+        setUser({});
+        setIsLoggedIn(false);
+        localStorage.clear();
+      }
+    };
+    token && fetchUser();
+  }, []);
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={isLoggedIn ? <DoctorDashboard /> : <Login />}
+        />
+        {!isLoggedIn && <Route path="/login" element={<Login />} />}
         {isLoggedIn && (
           <>
             <Route path="/register" element={<Register />} />
@@ -38,7 +58,10 @@ const App = () => {
             <Route path="/add-visit/:patientId" element={<AddVisitForm />} />
           </>
         )}
-        <Route path="*" element={<Login />} />
+        <Route
+          path="*"
+          element={isLoggedIn ? <DoctorDashboard /> : <Login />}
+        />
       </Routes>
     </>
   );

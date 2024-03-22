@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:3000/api/auth";
-const headers = {
-  Authorization: localStorage.getItem("token"),
-};
+// const headers = {
+//   Authorization: localStorage.getItem("token"),
+// };
 
 const authService = {
   login: async (formData) => {
@@ -15,11 +15,20 @@ const authService = {
     return response.data;
   },
   logout: async () => {
-    await axios.get(`${API_URL}/logout`, { headers });
+    await axios.get(`${API_URL}/logout`, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
   },
-  isAuthenticated: () => {
-    const token = localStorage.getItem("token");
-    return !!token;
+
+  getUser: async () => {
+    const response = await axios.get(`${API_URL}/user`, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+    return response.data;
   },
 };
 

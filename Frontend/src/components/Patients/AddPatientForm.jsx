@@ -33,7 +33,7 @@ const AddPatientForm = () => {
       setTimeout(() => {
         setAlert({ type: null, message: "" });
         navigate(-1);
-      }, 3000);
+      }, 2000);
     } catch (error) {
       setAlert({ type: "danger", message: error.response.data.message });
     }

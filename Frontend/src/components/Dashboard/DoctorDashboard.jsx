@@ -11,21 +11,27 @@ const DoctorDashboard = () => {
       <h2>{user.role.toUpperCase()} Dashboard</h2>
 
       <Row>
-        <Link to="/register">Create User</Link>
-        <Link to="/add-patient">Add Patient</Link>
-        <Link to="/add-visit">Add Visit</Link>
+        {user.role == "doctor" && <Link to="/register">Create User</Link>}
+        {user.permission.patient.insert && (
+          <Link to="/add-patient">Add Patient</Link>
+        )}
+        {user.permission.visit.insert && <Link to="/add-visit">Add Visit</Link>}
       </Row>
 
-      <Row>
-        <Col>
-          <PatientList isDashboard />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <VisitList isDashboard />
-        </Col>
-      </Row>
+      {user.permission.patient.view && (
+        <Row>
+          <Col>
+            <PatientList isDashboard />
+          </Col>
+        </Row>
+      )}
+      {user.permission.visit.view && (
+        <Row>
+          <Col>
+            <VisitList isDashboard />
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

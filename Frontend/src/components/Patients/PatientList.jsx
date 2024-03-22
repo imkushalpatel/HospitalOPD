@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { BsTrash, BsPencil, BsPlusLg } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthContext";
 
 import patientService from "../../services/patientService";
 
 const PatientList = ({ isDashboard }) => {
+  const { user } = useAuth();
   const [patients, setPatients] = useState([]);
   const navigate = useNavigate();
 
@@ -29,7 +31,6 @@ const PatientList = ({ isDashboard }) => {
   const handleDelete = async (id) => {
     try {
       await patientService.deletePatient(id);
-      // After deleting, fetch patients again to update the list
       const updatedPatients = patients.filter((patient) => patient._id !== id);
       setPatients(updatedPatients);
     } catch (error) {
@@ -62,24 +63,30 @@ const PatientList = ({ isDashboard }) => {
                         {patient.firstname} {patient.lastname}
                       </Col>
                       <Col xs="auto">
-                        <Button
-                          variant="link"
-                          onClick={() => handleAddVisit(patient._id)}
-                        >
-                          <BsPlusLg />
-                        </Button>
-                        <Button
-                          variant="link"
-                          onClick={() => handleDelete(patient._id)}
-                        >
-                          <BsTrash />
-                        </Button>
-                        <Button
-                          variant="link"
-                          onClick={() => handleEdit(patient._id)}
-                        >
-                          <BsPencil />
-                        </Button>
+                        {user.permission.visit.insert && (
+                          <Button
+                            variant="link"
+                            onClick={() => handleAddVisit(patient._id)}
+                          >
+                            <BsPlusLg />
+                          </Button>
+                        )}
+                        {user.permission.patient.delete && (
+                          <Button
+                            variant="link"
+                            onClick={() => handleDelete(patient._id)}
+                          >
+                            <BsTrash />
+                          </Button>
+                        )}
+                        {user.permission.patient.update && (
+                          <Button
+                            variant="link"
+                            onClick={() => handleEdit(patient._id)}
+                          >
+                            <BsPencil />
+                          </Button>
+                        )}
                       </Col>
                     </Row>
                   </Card.Title>

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { BsTrash, BsPencil } from "react-icons/bs";
+import { useAuth } from "../../AuthContext";
 
 import visitService from "../../services/visitService";
 
 const VisitList = ({ isDashboard }) => {
+  const { user } = useAuth();
   const [visits, setVisits] = useState([]);
 
   useEffect(() => {
@@ -54,18 +56,22 @@ const VisitList = ({ isDashboard }) => {
                         {visit.patient.firstname} {visit.patient.lastname}
                       </Col>
                       <Col xs="auto">
-                        <Button
-                          variant="link"
-                          onClick={() => handleDelete(visit._id)}
-                        >
-                          <BsTrash />
-                        </Button>
-                        <Button
-                          variant="link"
-                          onClick={() => handleEdit(visit._id)}
-                        >
-                          <BsPencil />
-                        </Button>
+                        {user.permission.visit.delete && (
+                          <Button
+                            variant="link"
+                            onClick={() => handleDelete(visit._id)}
+                          >
+                            <BsTrash />
+                          </Button>
+                        )}
+                        {user.permission.visit.update && (
+                          <Button
+                            variant="link"
+                            onClick={() => handleEdit(visit._id)}
+                          >
+                            <BsPencil />
+                          </Button>
+                        )}
                       </Col>
                     </Row>
                   </Card.Title>

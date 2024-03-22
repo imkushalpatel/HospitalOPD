@@ -10,14 +10,13 @@ const Logout = () => {
   useEffect(() => {
     const logout = async () => {
       try {
-        await authService.logout();
-
+        authService.logout();
         setTimeout(() => {
           setIsLoggedIn(false);
           setUser({});
           localStorage.clear();
           navigate("/login");
-        }, 3000);
+        }, 2000);
       } catch (error) {
         console.error("Error Logging Out", error);
       }
