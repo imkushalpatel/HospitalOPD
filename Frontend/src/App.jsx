@@ -22,7 +22,6 @@ const App = () => {
         const response = await authService.getUser();
         setUser(response.user);
         setIsLoggedIn(true);
-        console.log(response.user);
       } catch (error) {
         setUser({});
         setIsLoggedIn(false);

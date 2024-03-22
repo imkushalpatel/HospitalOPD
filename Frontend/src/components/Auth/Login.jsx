@@ -27,7 +27,6 @@ const Login = () => {
       localStorage.setItem("token", response.token);
       setUser(response.user);
       setIsLoggedIn(true);
-      console.log(response.user);
       // navigate(`/${response.user.role}-dashboard`);
       navigate("/dashboard");
       // navigate(`/nurse-dashboard`);
