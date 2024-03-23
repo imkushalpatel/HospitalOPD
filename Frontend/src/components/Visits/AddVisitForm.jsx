@@ -6,7 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const AddVisitForm = () => {
   const navigate = useNavigate();
-  const { patientId } = useParams();
+  const { patientId, visitId } = useParams();
   const [patients, setPatients] = useState([]);
   const [formData, setFormData] = useState({
     height: "",
@@ -34,25 +34,39 @@ const AddVisitForm = () => {
       }
     };
 
-    if (!patientId) {
-      fetchPatients();
-    } else {
-      const fetchPatient = async () => {
-        try {
-          const fetchedPatient = await patientService.getPatient(patientId);
-          setPatients([fetchedPatient]);
+    if (!visitId) {
+      if (!patientId) {
+        fetchPatients();
+      } else {
+        const fetchPatient = async () => {
+          try {
+            const fetchedPatient = await patientService.getPatient(patientId);
+            setPatients([fetchedPatient]);
 
-          setFormData({
-            ...formData,
-            patient: fetchedPatient._id,
-          });
+            setFormData({
+              ...formData,
+              patient: fetchedPatient._id,
+            });
+          } catch (error) {
+            console.error("Error fetching patient:", error);
+          }
+        };
+        fetchPatient();
+      }
+    } else {
+      const fetchVisit = async () => {
+        try {
+          const visit = await visitService.getVisit(visitId);
+          console.log(visit);
+          setPatients([visit.patient]);
+          setFormData({ ...visit, patient: visit.patient._id });
         } catch (error) {
-          console.error("Error fetching patient:", error);
+          console.error("Error fetching patients:", error);
         }
       };
-      fetchPatient();
+      fetchVisit();
     }
-  }, [patientId]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,7 +89,9 @@ const AddVisitForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await visitService.addVisit(formData);
+      const response = visitId
+        ? await visitService.updateVisit(visitId, formData)
+        : await visitService.addVisit(formData);
       setAlert({ type: "success", message: response.message });
       setTimeout(() => {
         setAlert({ type: null, message: "" });
@@ -98,7 +114,7 @@ const AddVisitForm = () => {
             name="patient"
             value={formData.patient}
             onChange={handleChange}
-            disabled={!!patientId} // Disable the dropdown if patientId is received
+            disabled={!!patientId || !!visitId}
           >
             <option value="">Select Patient</option>
             {patients.map((patient) => (
@@ -204,7 +220,7 @@ const AddVisitForm = () => {
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Add Visit
+          {visitId ? "Save Changes" : "Add Visit"}
         </Button>
       </Form>
     </div>

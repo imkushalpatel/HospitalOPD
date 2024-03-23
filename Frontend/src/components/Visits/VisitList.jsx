@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { BsTrash, BsPencil } from "react-icons/bs";
 import { useAuth } from "../../AuthContext";
+import { useNavigate } from "react-router-dom";
 
 import visitService from "../../services/visitService";
 
 const VisitList = ({ isDashboard }) => {
+  const navigate = useNavigate();
+
   const { user } = useAuth();
   const [visits, setVisits] = useState([]);
 
@@ -37,7 +40,7 @@ const VisitList = ({ isDashboard }) => {
   };
 
   const handleEdit = (id) => {
-    // Implement edit functionality here
+    navigate("/add-visit/visit/" + id);
     console.log("Edit visit with id:", id);
   };
 
@@ -92,6 +95,8 @@ const VisitList = ({ isDashboard }) => {
                     <strong>Prescriptions:</strong> {visit.prescriptions}
                     <br />
                     <strong>Diagnosis:</strong> {visit.diagnosis}
+                    <br />
+                    <strong>Created At:</strong> {visit.createdAt}
                   </Card.Text>
                 </Card.Body>
               </Card>

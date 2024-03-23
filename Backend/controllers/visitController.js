@@ -43,7 +43,7 @@ exports.createVisit = async (req, res) => {
 
 exports.getVisitById = async (req, res) => {
   try {
-    const visit = await Visit.findById(req.params.id);
+    const visit = await Visit.findById(req.params.id).populate("patient");
     if (!visit) {
       return res.status(404).json({ message: "Visit not found" });
     }

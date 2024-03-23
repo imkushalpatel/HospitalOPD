@@ -18,8 +18,16 @@ const visitService = {
     const response = await axios.get(`${API_URL}/today`);
     return response.data;
   },
+  getVisit: async (visitId) => {
+    const response = await axios.get(`${API_URL}/${visitId}`);
+    return response.data;
+  },
   addVisit: async (formData) => {
     const response = await axios.post(API_URL, formData);
+    return response.data;
+  },
+  updateVisit: async (visitId, formData) => {
+    const response = await axios.put(`${API_URL}/${visitId}`, formData);
     return response.data;
   },
   deleteVisit: async (id) => {
